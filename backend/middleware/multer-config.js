@@ -1,6 +1,7 @@
 // Multer : Pour gérer les requêtes HTTP avec envoi de fichier
 // Importation de multer
 const multer = require('multer'); 
+
 // Importation de path
 const path = require("path");
 
@@ -13,17 +14,19 @@ const MIME_TYPES = {
 
 // Destination du fichier (répertoire) et génération d'un nom de fichier unique
 const storage = multer.diskStorage({
+  
   // Destination de stockage du fichier image
   destination: (req, file, callback) => {
     callback(null, 'images');
   },
   filename: (req, file, callback) => {
     const extension = MIME_TYPES[file.mimetype];
-    // Supprimer les espaces et les remplacer par des _
+    
+    // Supprime les espaces et les remplacer par des _
     const name = file.originalname.split(' ').join('_');
+    // Crée un nouveau nom pour la photo
     const photoName = path.parse(name);
     callback(null, photoName.name + "_" + Date.now() + '.' + extension);
-    console.log(photoName.name);
   }
 });
 

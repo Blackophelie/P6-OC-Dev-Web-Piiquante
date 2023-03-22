@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
+// Modèle de schéma de sauce
 const sauceSchema = mongoose.Schema ({
    "userId": { type: String, required: true },
    "name": { type: String, required: true, unique: true },

@@ -4,9 +4,10 @@ const express = require("express");
 
 // Contrôleur sauce
 const sauceCtrl = require("../controllers/sauces");
-// const likeCtrl = require("../controllers/sauces");
+
 // Middleware d'authentification
 const auth = require("../middleware/auth");
+
 // Middleware multer pour gestion des fichiers image
 const multer = require("../middleware/multer-config");
 
