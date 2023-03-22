@@ -15,10 +15,10 @@ const router = express.Router();
 
 // Routes
 router.get("/", sauceCtrl.getAllSauces);
-router.get("/:id", auth, sauceCtrl.getOneSauce);
+router.get("/:id", sauceCtrl.getOneSauce);
 router.post("/", auth, multer, sauceCtrl.createSauce);
 router.put("/:id", auth, multer, sauceCtrl.modifySauce);
 router.delete("/:id", auth, sauceCtrl.deleteSauce);
-router.post("/:id/like", auth, sauceCtrl.didUserlike);
+router.post("/:id/like", auth, sauceCtrl.didUserLike);
 
 module.exports = router;

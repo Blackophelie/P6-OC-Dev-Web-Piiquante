@@ -22,15 +22,18 @@ mongoose // connection à la collection "piiquante" sur mongoDB
 app.use(express.json());
 app.use(bodyParser.json());
 
-//CORS (Cross-origin resource sharing)
+// CORS (Cross-origin resource sharing)
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*'); // autorise les connections depuis n'importe quelle adresse IP
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'); // autorise les headers
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS'); // autorise les méthodes indiquées
+  // autorise les connections à l'API depuis n'importe quelle adresse IP  
+  res.setHeader('Access-Control-Allow-Origin', '*'); 
+  // autorise ces headers
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'); 
+  // autorise les méthodes indiquées
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS'); 
   next();
 });
 
-//ROUTES
+// ROUTES
 app.use("/api/auth", userRoutes);
 app.use("/api/sauces", sauceRoutes);
 app.use("/images", express.static(path.join(__dirname, "images")));
