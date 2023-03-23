@@ -1,4 +1,5 @@
 require('dotenv').config(); // Pour les variables d'environnement
+const auth = require("./middleware/auth");
 const express = require('express'); // va chercher express dans le node_modules
 const bodyParser = require('body-parser');// va chercher body-parser dans le node_modules
 const mongoose = require('mongoose');// va chercher mongoose dans le node_modules
@@ -35,7 +36,7 @@ app.use((req, res, next) => {
 
 // ROUTES
 app.use("/api/auth", userRoutes);
-app.use("/api/sauces", sauceRoutes);
+app.use("/api/sauces", auth, sauceRoutes);
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;
