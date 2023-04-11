@@ -104,7 +104,7 @@ exports.deleteSauce = (req, res) => {
 exports.didUserLike = (req, res) => {
    
    const { like, userId } = req.body;
-   console.log(like, userId);
+  // Vérifie si la valeur de like est différente de 1, -1 ou 0 
    if (![1, -1, 0].includes(like)) return res.status(403).send({ message: "Valeur incorrecte!"})
 
    // Si l'utilisateur aime la sauce
@@ -123,7 +123,8 @@ exports.didUserLike = (req, res) => {
          .then(() => res.status(200).json({ message: "Vous n'avez pas aimé la sauce !" }))
          .catch(error => res.status(400).json({ error }));
 
-   // Quand userId existe dans usersLiked ou usersDisliked (l'utilisateur a déjà voté et annule son vote)
+   
+   // Si l'utilisateur a déjà voté et annule son vote (userId existe dans usersLiked ou usersDisliked)
    } else if (like === 0) {
       Sauce.findOne({ _id: req.params.id })
          .then(sauce => {

@@ -14,7 +14,7 @@ const MIME_TYPES = {
 
 // Destination du fichier (répertoire) et génération d'un nom de fichier unique
 const storage = multer.diskStorage({
-  
+
   // Destination de stockage du fichier image
   destination: (req, file, callback) => {
     callback(null, 'images');

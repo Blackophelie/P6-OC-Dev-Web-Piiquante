@@ -5,9 +5,10 @@ const emailValidator = require("../middleware/validator")
 
 // INSCRIPTION (SIGN UP)
 exports.signup = (req, res) => {
+
    // Si le format de l'email est valide
    if (emailValidator) {
-   // Hâche le mot de passe
+      // Hâche le mot de passe
       bcrypt.hash(req.body.password, 10)
          .then(hash => {
             const user = new User({
@@ -20,6 +21,7 @@ exports.signup = (req, res) => {
                .catch(error => res.status(400).json({ error }));
          })
          .catch(error => res.status(500).json({ error }));
+
    // Si le format de l'email est invalide
    } else if (emailValidator != true) {
       res.status(406).json({ message: "E-mail non valide" })
@@ -30,13 +32,13 @@ exports.signup = (req, res) => {
 exports.login = (req, res) => {
    const { email, password } = req.body;
 
-   // Cherche le user via son email
+   // Cherche l'utilisateur via son e-mail
    User.findOne({ email})
       .then((user) => {
-         // Si user inexistant
+         
+         // Si e-mail inexistant
          if (!user) {
             res.status(401).send({ message: "Utilisateur inconnu" });
-
          // Sinon, compare les mots de passe, et si OK, génère un token pour 24h
          } else {
             bcrypt.compare(password, user.password)
