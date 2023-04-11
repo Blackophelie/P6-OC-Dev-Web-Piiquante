@@ -1,27 +1,29 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/users");
 const jwt = require("jsonwebtoken");
+const emailValidator = require("../middleware/validator")
 
 // INSCRIPTION (SIGN UP)
 exports.signup = (req, res) => {
+   // Si le format de l'email est valide
+   if (emailValidator) {
    // Hâche le mot de passe
-   bcrypt.hash(req.body.password, 10)
-      .then(hash => {
-         const user = new User({
-            email: req.body.email,
-            password: hash
-         });
-         // Enregistre le nouvel utilisateur
-         user.save()
-            .then(() => {
-               res.status(201).json({ message: "Nouvel utilisateur enregistré !" })
-            })
-            .catch(error => {
-               res.status(400).json({ error})
+      bcrypt.hash(req.body.password, 10)
+         .then(hash => {
+            const user = new User({
+               email: req.body.email,
+               password: hash
             });
-      })
-      .catch(error => res.status(500).json({ error}));
-   
+            // Enregistre le nouvel utilisateur
+            user.save()
+               .then(() => res.status(201).json({ message: "Nouvel utilisateur enregistré !" }))
+               .catch(error => res.status(400).json({ error }));
+         })
+         .catch(error => res.status(500).json({ error }));
+   // Si le format de l'email est invalide
+   } else if (emailValidator != true) {
+      res.status(406).json({ message: "E-mail non valide" })
+   }
 };
 
 // LOGIN
