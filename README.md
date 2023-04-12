@@ -6,7 +6,7 @@ Développement d'une application web nommée "Piiquante" dans laquelle les utili
 Le but est de créer le backend de l'application, le frontend étant déjà codé et fourni.
 
 ## Objectifs du projet et compétences évaluées
-Développement Backend en Javascript
+#Développement Backend en Javascript
 - Serveur **Node.js**
 - Framework **Express**
 - Base de données **MongoDB**
@@ -17,26 +17,26 @@ Développement Backend en Javascript
 
 ## Mesures de sécurité mises en place
 - Hashage du mot de passe utilisateur avec **bcrypt**
-- Manipulation sécurisée de la base de donnée avec **mongoose**
-- Vérification que l'email utilisateur soit unique dans la base de données avec **mongoose-unique-validator**
-- Vérification que le format de l'email utilisateur soit valide avec **email-validator**
+- Manipulation sécurisée de la base de données avec **mongoose**
+- Vérification de l'unicité de l'email dans la base de données avec **mongoose-unique-validator**
+- Vérification de la validité du format de l'email utilisateur avec **email-validator**
 - Vérification de la force du mot de passe avec **password-validator**
 - Utilisation de variables d'environnement pour les données sensibles avec **dotenv**
 - Authentification de l'utilisateur par token avec **jsonwebtoken**
 
 
-## Pour tester l'application
+## Lancement de l'application
 > 
-1. Cloner le [frontend  de l'application](https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6), et le lancer :  
-    - dans un terminal, accéder au dossier du frontend ;
-    - installer les dépendances en tapant : `npm install` ;
-    - lancer en tapant : `npm install` ;
+  1. Cloner le [frontend  de l'application](https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6) et le lancer : 
+  - dans un terminal, accéder au dossier du frontend ;
+  - installer les dépendances avec la commande : `npm install` ;
+  - lancer avec la commande : `npm start` .
+        
+  2. Cloner [ce repository backend](https://github.com/Blackophelie/P6-OC-Dev-Web-Piiquante.git).
 
-2. Cloner [ce repository backend](https://github.com/Blackophelie/P6-OC-Dev-Web-Piiquante.git)
+  3. Ajouter un fichier de configuration nommé **".env"** à la racine du backend contenant les variables d'environnement.
 
-3. Ajouter un fichier de configuration nommé **".env"** à la racine du backend contenant les variables d'environnement.
-
-4. Ajouter un fichier nommé **.gitignore** à la racine du backend également, qui designera les fichiers à ne pas publier sur GitHub : 
+  4. Ajouter un fichier nommé **".gitignore"** à la racine du backend également, qui designera les fichiers à ne pas publier sur GitHub : 
    - `.env`
    - `node_modules`
    - `images`
