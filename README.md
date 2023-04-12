@@ -53,5 +53,5 @@ Le but est de créer le backend de l'application, le frontend étant déjà cod�
 
 6. Le frontend est accessible à l'adresse http://localhost:4200
 
-7. Pour des tests spécifiques (avec postman par exemple), le backend répond à l'adresse: http://localhost:3000.
+7. Pour des tests spécifiques (avec postman par exemple), le backend répond à l'adresse: http://localhost:3000.  
 (:warning: Attention: authentification requise pour toutes les routes /api/sauces/)
