@@ -41,10 +41,10 @@ Le but est de créer le backend de l'application, le frontend étant déjà cod�
 3. Ajouter un fichier de configuration nommé **".env"** à la racine du backend contenant les variables d'environnement.
 
 4. Ajouter un fichier nommé **".gitignore"** à la racine du backend également, qui designera les fichiers à ne pas publier sur GitHub : 
- >- `.env`
- >- `node_modules`
- >- `images`
- >- `.vscode`.
+ > .env
+ > node_modules
+ > images
+ > .vscode
 
 5. Lancer le backend :
    - dans un terminal, accéder au dossier du frontend ;
