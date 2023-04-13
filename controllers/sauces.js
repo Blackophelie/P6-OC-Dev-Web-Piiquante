@@ -130,7 +130,7 @@ exports.didUserLike = async (req, res) => {
             return res.status(200).json({ message: "Vous n'avez pas aimé la sauce !" })
          }
          catch (error) { 
-            res.status(400).json({ error });
+            return res.status(400).json({ error });
          }
       } 
    }
@@ -146,7 +146,7 @@ exports.didUserLike = async (req, res) => {
             return res.status(200).json({ message: "Votre vote a été annulé"})
          }
          catch (error) {
-            res.status(400).json({ error })
+            return res.status(400).json({ error })
          }
       } 
          
@@ -158,7 +158,7 @@ exports.didUserLike = async (req, res) => {
             return res.status(200).json({ message: "Votre vote a été annulé"})
          }
          catch (error) {
-            res.status(400).json({ error })
+            return res.status(400).json({ error })
          }
       }
    }
