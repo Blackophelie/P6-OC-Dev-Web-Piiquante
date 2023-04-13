@@ -40,18 +40,12 @@ Le but est de créer le backend de l'application, le frontend étant déjà cod�
 
 3. Ajouter un fichier de configuration nommé **".env"** à la racine du backend contenant les variables d'environnement.
 
-4. Ajouter un fichier nommé **".gitignore"** à la racine du backend également, qui designera les fichiers à ne pas publier sur GitHub : 
- > .env  
- > node_modules  
- > images  
- > .vscode  
-
-5. Lancer le backend :
+4. Lancer le backend :
    - dans un terminal, accéder au dossier du frontend ;
    - installer les dépendances avec la commande : `npm install` ;
    - lancer avec la commande : `node server` ou `nodemon server`.
 
-6. Le frontend est accessible à l'adresse http://localhost:4200
+5. Le frontend est accessible à l'adresse http://localhost:4200
 
-7. Pour des tests spécifiques (avec postman par exemple), le backend répond à l'adresse: http://localhost:3000.  
+6. Pour des tests spécifiques (avec postman par exemple), le backend répond à l'adresse: http://localhost:3000.  
 (:warning: Attention: authentification requise pour toutes les routes /api/sauces/)

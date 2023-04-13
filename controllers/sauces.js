@@ -101,51 +101,66 @@ exports.deleteSauce = (req, res) => {
 };
 
 // LIKE OU DISLIKE (POST)
-exports.didUserLike = (req, res) => {
+exports.didUserLike = async (req, res) => {
    
    const { like, userId } = req.body;
-  // Vérifie si la valeur de like est différente de 1, -1 ou 0 
-   if (![1, -1, 0].includes(like)) return res.status(403).send({ message: "Valeur incorrecte!"})
+
+   const sauce = await Sauce.findOne({ _id: req.params.id })
 
    // Si l'utilisateur aime la sauce
    if (like === 1) {
-
-      // Ajoute 1 aux likes et ajoute l'userId dans usersLiked
-      Sauce.updateOne({ _id: req.params.id }, { $push: { usersLiked: userId }, $inc: { likes: +1 } })
-         .then(() => res.status(200).json({ message: "Vous avez aimé la sauce !" }))
-         .catch(error => res.status(400).json({ error }));
+      if (!sauce.usersLiked.includes(userId)){
+         // Ajoute 1 aux likes et ajoute l'userId dans usersLiked
+         try {
+            await Sauce.updateOne({ _id: req.params.id }, { $addToSet: { usersLiked: userId }, $inc: { likes: +1 } })
+            return res.status(200).json({ message: "Vous avez aimé la sauce !" })
+         }
+         catch (error) {
+            return res.status(400).json({ error });
+         }
+      }
+   }
    
    // Si l'utilisateur n'aime pas la sauce
-   } else if (like === -1) {
+   else if (like === -1) {
+      if (!sauce.usersDisliked.includes(userId)) {
+         // Ajoute 1 aux dislikes et ajoute l'userId dans usersDisliked
+         try  {
+            await Sauce.updateOne({ _id:req.params.id }, { $addToSet: { usersDisliked: userId }, $inc: { dislikes: +1 } })
+            return res.status(200).json({ message: "Vous n'avez pas aimé la sauce !" })
+         }
+         catch (error) { 
+            res.status(400).json({ error });
+         }
+      } 
+   }
 
-      // Ajoute 1 aux dislikes et ajoute l'userId dans usersDisliked
-      Sauce.updateOne({ _id:req.params.id }, { $push: { usersDisliked: userId }, $inc: { dislikes: +1 } })
-         .then(() => res.status(200).json({ message: "Vous n'avez pas aimé la sauce !" }))
-         .catch(error => res.status(400).json({ error }));
-
-   
-   // Si l'utilisateur a déjà voté et annule son vote (userId existe dans usersLiked ou usersDisliked)
-   } else if (like === 0) {
-      Sauce.findOne({ _id: req.params.id })
-         .then(sauce => {
-
-            //Si userId présent dans usersLiked
-            if (sauce.usersLiked.includes(userId)) {
-
-               // Retire userId de usersLiked et 1 aux likes
-               Sauce.updateOne({ _id:req.params.id }, { $pull: { usersLiked: userId }, $inc: { likes: -1 } })
-                  .then(() => res.status(200).json({ message: "Votre vote a été annulé"}))
-                  .catch(error => res.status(400).json({ error }));
-
-            // Si userId présent dans usersDisliked
-            } else if (sauce.usersDisliked.includes(userId)) {
-
-               // Retire userId de usersDisliked et 1 aux dislikes
-               Sauce.updateOne({ _id:req.params.id }, { $pull: { usersDisliked: userId }, $inc: { dislikes: -1 } })
-                  .then(() => res.status(200).json({ message: "Votre vote a été annulé"}))
-                  .catch(error => res.status(400).json({ error }));
-            };
-         })
-         .catch(error => res.status(400).json({ error }));
-   };
+   // Quand userId existe dans usersLiked ou usersDisliked (l'utilisateur a déjà voté et annule son vote)
+   else if (like === 0) {
+      
+      //Si userId présent dans usersLiked
+      if (sauce.usersLiked.includes(userId)) {
+         // Retire userId de usersLiked et 1 aux likes
+         try {
+            await Sauce.updateOne({ _id:req.params.id }, { $pull: { usersLiked: userId }, $inc: { likes: -1 } })
+            return res.status(200).json({ message: "Votre vote a été annulé"})
+         }
+         catch (error) {
+            res.status(400).json({ error })
+         }
+      } 
+         
+      // Si userId présent dans usersDisliked
+      else if (sauce.usersDisliked.includes(userId)) {
+         // Retire userId de usersDisliked et 1 aux dislikes
+         try {
+            await Sauce.updateOne({ _id:req.params.id }, { $pull: { usersDisliked: userId }, $inc: { dislikes: -1 } })
+            return res.status(200).json({ message: "Votre vote a été annulé"})
+         }
+         catch (error) {
+            res.status(400).json({ error })
+         }
+      }
+   }
+   return res.status(400).json({ message: "Opération interdite !!"})
 };
